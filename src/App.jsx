@@ -1,51 +1,34 @@
 import './App.scss';
-import EChart from './components/EChart';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Analytics from './pages/Analytics';
 
-const option = {
-  title: {
-    text: 'Referer of a Website',
-    subtext: 'Fake Data',
-    left: 'center'
-  },
-  tooltip: {
-    trigger: 'item'
-  },
-  legend: {
-    orient: 'vertical',
-    left: 'left'
-  },
-  series: [
-    {
-      name: 'Access From',
-      type: 'pie',
-      radius: '50%',
-      data: [
-        { value: 1048, name: 'Search Engine' },
-        { value: 735, name: 'Direct' },
-        { value: 580, name: 'Email' },
-        { value: 484, name: 'Union Ads' },
-        { value: 300, name: 'Video Ads' }
-      ],
-      emphasis: {
-        itemStyle: {
-          shadowBlur: 10,
-          shadowOffsetX: 0,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
-        }
-      }
-    }
-  ]
-};
+
+// from 1980 to now: https://api.worldbank.org/v2/country/ge/indicator/NY.GDP.MKTP.CD?date=1980:2022
+
+// from 1980 to now (All): https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.CD?date=1980:2022
+
+// from 1980 to now (JSON): https://api.worldbank.org/v2/country/ge/indicator/NY.GDP.MKTP.CD?date=1980:2022&format=json
+
+
+const GDPApiGeo = "https://api.worldbank.org/v2/country/ge/indicator/NY.GDP.MKTP.CD?format=json"
+
 
 function App() {
 
   return (
-    <div className="App">
-      <EChart 
-        option={option}
-      />
+      <div className="App">
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/analytics" element={<Analytics />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
 
 export default App;
+

@@ -1,3 +1,5 @@
+@import "./components/scss/variables.scss";
+
 * {
   margin: 0;
   padding: 0;
@@ -5,6 +7,22 @@
   box-sizing: border-box;
 }
 
+a {
+  color: unset;
+  text-decoration: none;
+}
+
 .App {
-  height: 100vh;
+  background-color: var(--primary-bg-color);
+}
+
+main {
+  padding-top: 60px !important;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1920px;
+  width: 100%;
 }
