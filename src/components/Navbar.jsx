@@ -1,12 +1,18 @@
 import "./Navbar.scss"
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+
+import { useSelector, useDispatch } from "react-redux";
+import { setLightMode } from "../redux/action/darkModeAction";
+import { setDarkMode } from "../redux/action/darkModeAction";
+
 import HomeIcon from '@mui/icons-material/Home';
 import InsightsIcon from '@mui/icons-material/Insights';
 import ThemeSwitcher from "./ThemeSwitcher";
 
 function Navbar() {
-    const [isDarkMode, setIsDarkMode] = useState(false)
+    const isDarkMode = useSelector(state => state.darkMode.isDarkMode)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (localStorage.getItem("theme") === null) {
@@ -29,13 +35,13 @@ function Navbar() {
     const setDark = () => {
         localStorage.setItem("theme", "dark")
         document.documentElement.setAttribute("data-theme", "dark")
-        setIsDarkMode(true)
+        dispatch(setDarkMode())
     }
     
     const setLight = () => {
         localStorage.setItem("theme", "light")
         document.documentElement.setAttribute("data-theme", "light")
-        setIsDarkMode(false)
+        dispatch(setLightMode())
     }
 
     return (
