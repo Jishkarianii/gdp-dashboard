@@ -1,0 +1,12 @@
+.GDP-dynamics {
+    width: 100%;
+    height: 500px;
+    border-radius: 6px;
+    background: var(--secondary-bg-color);
+}
+
+@media screen and (max-width: 430px) {
+    .GDP-dynamics {
+        height: 300px;
+    }
+}

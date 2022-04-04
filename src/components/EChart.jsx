@@ -1,12 +1,35 @@
 import "./EChart.scss"
 import * as echarts from 'echarts'
-import { useState, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux';
+import { useState, useEffect, useRef, useCallback } from 'react'
 
-function EChart({ option, resize, width = "100%", height = "100%" }) {
+function EChart({ option }) {
     const chart = useRef(null)
     const [chartEl, setChartEl] = useState(chart)
-    const isDarkMode = useSelector(state => state.darkMode.isDarkMode)
+    const [resize, setResize] = useState(false)
+    const [timer, setTimer] = useState(0)
+
+    const triggerResize = useCallback(() => {
+        if (timer) {
+            window.cancelAnimationFrame(timer);
+        }
+        // Debounce the window resize event
+        setTimer(window.requestAnimationFrame(function () {
+            setResize(true)
+            setTimeout(() => {
+                setResize(false)
+            }, 0)
+        }));
+        
+    },[setResize, timer])
+
+    useEffect(() => {
+        window.addEventListener('resize', triggerResize)
+        
+        return () => {
+            window.removeEventListener('resize', triggerResize)
+        }
+        // eslint-disable-next-line
+    }, [])
 
     useEffect(() => {
         if (resize) {
@@ -23,11 +46,7 @@ function EChart({ option, resize, width = "100%", height = "100%" }) {
     return (
         <div 
             className="chart"
-            ref={chart} 
-            style={{
-                width: width,
-                height: height
-            }}
+            ref={chart}
         />
     )
 }

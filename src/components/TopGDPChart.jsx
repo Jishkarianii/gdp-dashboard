@@ -6,9 +6,13 @@ import EChart from "./EChart";
 const optionLight = {
     title: {
       text: 'Top GDP Countries',
+      subtext: 'Current',
       left: 'center',
       textStyle: {
           color: "rgb(70, 70, 70)"
+      },
+      subtextStyle: {
+          color: "rgb(172, 172, 175)"
       }
     },
     tooltip: {
@@ -50,9 +54,13 @@ const optionLight = {
 const optionDark = {
     title: {
       text: 'Top GDP Countries',
+      subtext: 'Current',
       left: 'center',
       textStyle: {
           color: "rgb(236, 236, 236)"
+      },
+      subtextStyle: {
+          color: "rgb(172, 172, 175)"
       }
     },
     tooltip: {
@@ -105,14 +113,34 @@ function TopGDPChart() {
             setOption(optionLight)
         }
     }, [isDarkMode])
+    
+    useEffect(() => {
+      resizeHandler()
+    }, [])
+
+    useEffect(() => {
+      window.addEventListener("resize", resizeHandler)
+      return () => {
+        window.removeEventListener("resize", resizeHandler)
+      }
+    })
+
+    const resizeHandler = () => {
+      let editedOption = option;
+
+      if (window.innerWidth < 430) {
+        editedOption.legend.show = false;
+        setOption(editedOption)
+      } else {
+        editedOption.legend.show = true;
+        setOption(editedOption)
+      }
+    }
 
     return (
-        <section className="top-GDP-chart">
-            <EChart 
-                option={option}
-                height={"500px"}
-            />
-        </section>
+        <div className="top-GDP-chart">
+            <EChart option={option} />
+        </div>
     )
 }
 

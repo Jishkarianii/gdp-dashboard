@@ -16,7 +16,7 @@ function Navbar() {
 
     useEffect(() => {
         if (localStorage.getItem("theme") === null) {
-            setLight()
+            setDark()
         } else if (localStorage.getItem("theme") === "dark") {
             setDark()
         } else if (localStorage.getItem("theme") === "light") {

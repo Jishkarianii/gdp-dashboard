@@ -1,0 +1,11 @@
+.chart-container {
+    margin-top: 8px;
+    display: flex;
+    gap: 8px;
+}
+
+@media screen and (max-width: 1430px) {
+    .chart-container {
+        display: grid;
+    }
+}

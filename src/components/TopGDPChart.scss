@@ -1,3 +1,19 @@
 .top-GDP-chart {
-    margin-top: 10px;
+    padding: 20px;
+    width: calc(100% - 40px);
+    height: 500px;
+    border-radius: 6px;
+    background: var(--secondary-bg-color);
+}
+
+@media screen and (max-width: 1430px) {
+    .top-GDP-chart {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .top-GDP-chart {
+        height: 400px;
+    }
 }

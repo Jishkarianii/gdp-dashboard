@@ -56,6 +56,7 @@ function ThemeSwitcher({ checked, onClick }) {
         control={<MaterialUISwitch sx={{ m: 1 }} checked={checked} />}
         label=""
         onClick={onClick}
+        style={{ marginRight: "0" }}
     />
   );
 }
