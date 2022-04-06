@@ -22,13 +22,23 @@
         
         &--value {
             margin-top: 14px;
-            font-size: 38px;
+            font-size: 36px;
         }
     }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 900px) {
     .current-GDP {
         display: grid;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .current-GDP {
+        &__item {
+            &--value {
+                font-size: 27px;
+            }
+        }
     }
 }

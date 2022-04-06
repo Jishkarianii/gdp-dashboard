@@ -105,6 +105,10 @@ const optionDark = {
 function TopGDPChart() {
     const [option, setOption] = useState(optionLight)
     const isDarkMode = useSelector(state => state.darkMode.isDarkMode)
+    
+    useEffect(() => {
+      resizeHandler()
+    }) 
 
     useEffect(() => {
         if (isDarkMode) {
@@ -113,10 +117,6 @@ function TopGDPChart() {
             setOption(optionLight)
         }
     }, [isDarkMode])
-    
-    useEffect(() => {
-      resizeHandler()
-    }, [])
 
     useEffect(() => {
       window.addEventListener("resize", resizeHandler)
@@ -126,14 +126,12 @@ function TopGDPChart() {
     })
 
     const resizeHandler = () => {
-      let editedOption = option;
-
       if (window.innerWidth < 430) {
-        editedOption.legend.show = false;
-        setOption(editedOption)
+        option.legend.show = false;
+        setOption(option)
       } else {
-        editedOption.legend.show = true;
-        setOption(editedOption)
+        option.legend.show = true;
+        setOption(option)
       }
     }
 
