@@ -126,9 +126,10 @@ function TopGDPChart() {
 
       // get ten higher GDP countries
       for (let i = 0; i < 10; i++) {
+        const shortValue = (sortedCountries[i].value / 1000000000).toFixed(0);
         const country = { 
           name: sortedCountries[i].country.value,
-          value: sortedCountries[i].value
+          value: shortValue
         }
         topTenCountries.push(country)
       }
@@ -139,9 +140,10 @@ function TopGDPChart() {
       }
 
       // Push other countries sum
+      const shortValue = (otherCountriesSum / 1000000000).toFixed(0);
       topTenCountries.push({
         name: "Other",
-        value: otherCountriesSum
+        value: shortValue
       })
   
       return topTenCountries;
