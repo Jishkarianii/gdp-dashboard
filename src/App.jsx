@@ -14,7 +14,12 @@ import axios from 'axios';
 // from 1980 to now (JSON): https://api.worldbank.org/v2/country/ge/indicator/NY.GDP.MKTP.CD?date=1980:2022&format=json
 
 
-const GDPOfWorld = "https://api.worldbank.org/v2/countries/wld/indicators/NY.GDP.MKTP.CD?format=json"
+
+// for chart: https://data.worldbank.org/indicator/NY.GDP.MKTP.CD
+
+
+const api = "https://api.worldbank.org/v2/countries/all/indicators/NY.GDP.MKTP.CD?format=json&date=2020&page="
+
 
 function App() {
   return (

@@ -22,7 +22,7 @@ function CurrentGDP() {
 
         setTimeout(() => {
             setEndCount(true)
-        }, 2000);
+        }, 1000);
     }, [])
 
     const getWorldGDP = () => {
@@ -48,7 +48,7 @@ function CurrentGDP() {
                     ${endCount ? (
                         numberWithCommas(world)
                     ) : (
-                        <CountUp end={world} duration={2} />
+                        <CountUp end={world} duration={1} />
                     )}
                 </p>
             </div>
@@ -59,7 +59,7 @@ function CurrentGDP() {
                     ${endCount ? (
                         numberWithCommas(georgia)
                     ) : (
-                        <CountUp end={georgia} duration={2} />
+                        <CountUp end={georgia} duration={1} />
                     )}
                 </p>
             </div>
