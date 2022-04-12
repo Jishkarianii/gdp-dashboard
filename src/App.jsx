@@ -18,7 +18,7 @@ import axios from 'axios';
 // for chart: https://data.worldbank.org/indicator/NY.GDP.MKTP.CD
 
 
-const api = "https://api.worldbank.org/v2/country/ge/indicator/NY.GDP.MKTP.CD?&format=json&date=1980:2022"
+const api = "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.CD?&format=json&date=2020"
 
 
 function App() {

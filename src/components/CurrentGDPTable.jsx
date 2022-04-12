@@ -9,21 +9,34 @@ import Paper from '@mui/material/Paper';
 
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import axios from "axios";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+const currentGDP = "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.CD?&format=json&date=2020"
 
 function CurrentGDPTable() {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [countresData, setCountresData] = useState([])
   const isDarkMode = useSelector(state => state.darkMode.isDarkMode)
+
+  useEffect(() => {
+    getCurrentGDPData()
+  }, [])
+
+  const getCurrentGDPData = async () => {
+    const res = await axios.get(currentGDP)
+    const data = res.data[1];
+
+    const editedData = [];
+
+    data.forEach(item => {
+      const name = item.country.value;
+      const value = (item.value / 100000000000).toFixed(1);
+      editedData.push({ name, value })
+    });
+
+    setCountresData(editedData)
+    setIsLoaded(true)
+  }
 
   return (
     <section className="current-GDP-table">
@@ -42,17 +55,18 @@ function CurrentGDPTable() {
             </TableRow>
             </TableHead>
             <TableBody>
-            {rows.map((row) => (
+            {isLoaded && (
+              countresData.map(item => (
                 <TableRow
-                  key={row.name}
+                  key={item.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}  
                 >
                 <TableCell component="th" scope="row" style={{ color: isDarkMode ? "rgb(236, 236, 236)" : "rgb(70, 70, 70)", borderColor: "rgb(172, 172, 175)" }}>
-                    {row.name}
+                    {item.name}
                 </TableCell>
-                <TableCell align="center" style={{ color: isDarkMode ? "rgb(236, 236, 236)" : "rgb(70, 70, 70)", borderColor: "rgb(172, 172, 175)" }}>{row.calories}</TableCell>
+                  <TableCell align="center" style={{ color: isDarkMode ? "rgb(236, 236, 236)" : "rgb(70, 70, 70)", borderColor: "rgb(172, 172, 175)" }}>{item.value}</TableCell>
                 </TableRow>
-            ))}
+            )))}
             </TableBody>
         </Table>
       </TableContainer>
