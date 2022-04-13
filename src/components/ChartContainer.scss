@@ -1,11 +1,12 @@
 .chart-container {
     margin-top: 8px;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, calc(50% - 4px));
     gap: 8px;
 }
 
 @media screen and (max-width: 1430px) {
     .chart-container {
-        display: grid;
+        grid-template-columns: 100%;
     }
 }
