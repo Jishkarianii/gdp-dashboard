@@ -8,7 +8,7 @@ const georgiaGDP = "https://api.worldbank.org/v2/countries/geo/indicators/NY.GDP
 
 // number with commas as thousands separators
 function numberWithCommas(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return JSON.stringify(number).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function CurrentGDP() {
@@ -28,14 +28,22 @@ function CurrentGDP() {
     const getWorldGDP = () => {
         axios.get(worldGDP)
         .then(res => {
-            setWorld(res.data[1][0].value);
+            if (res.data[1][0].value == null) {
+                setWorld(res.data[1][1].value);
+            } else {
+                setWorld(res.data[1][0].value);
+            }
         })
     }
 
     const getGeorgiaGDP = () => {
         axios.get(georgiaGDP)
         .then(res => {
-            setGeorgia(res.data[1][0].value);
+            if (res.data[1][0].value == null) {
+                setGeorgia(res.data[1][1].value);
+            } else {
+                setGeorgia(res.data[1][0].value);
+            }
         })
     }
 
