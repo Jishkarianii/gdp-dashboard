@@ -1,6 +1,6 @@
 import "./AnalyticsChart.scss"
-import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useState, useEffect, useContext } from 'react'
+import ThemeContext from "../context/ThemeContext"
 import EChart from "./EChart"
 import axios from 'axios'
 
@@ -38,7 +38,7 @@ const optionData = {
 
 function AnalyticsChart() {
   const [option, setOption] = useState(optionData)
-  const isDarkMode = useSelector(state => state.darkMode.isDarkMode)
+  const theme = useContext(ThemeContext)
   
   useEffect(() => {
     setChartData()
@@ -47,14 +47,14 @@ function AnalyticsChart() {
   useEffect(() => {
     const editedOption = { ...option };
 
-        if (isDarkMode) {
+        if (theme.isDarkMode) {
           editedOption.legend.textStyle.color = "rgb(236, 236, 236)";
         } else {
           editedOption.legend.textStyle.color = "rgb(70, 70, 70)";
         }
 
         setOption(editedOption)
-  }, [isDarkMode])
+  }, [theme.isDarkMode])
 
   const getAnalyticsData = async () => {
     const collectedData = [];

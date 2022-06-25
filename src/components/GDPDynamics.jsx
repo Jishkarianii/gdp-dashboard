@@ -1,8 +1,8 @@
 import "./GDPDynamics.scss"
 import EChart from "./EChart"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import ThemeContext from "../context/ThemeContext";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 const geoGDPDynamics = "https://api.worldbank.org/v2/country/geo/indicator/NY.GDP.MKTP.CD?&format=json&date=1980:2020"
 
@@ -31,7 +31,7 @@ const optionData = {
 
 function GDPDynamics() {
   const [option, setOption] = useState(optionData)
-  const isDarkMode = useSelector(state => state.darkMode.isDarkMode)
+  const theme = useContext(ThemeContext)
 
   useEffect(() => {
     setChartData()
@@ -40,14 +40,14 @@ function GDPDynamics() {
   useEffect(() => {
     const editedOption = { ...option };
 
-    if (isDarkMode) {
+    if (theme.isDarkMode) {
       editedOption.title.textStyle.color = "rgb(236, 236, 236)";
     } else {
       editedOption.title.textStyle.color = "rgb(70, 70, 70)"; 
     }
 
     setOption(editedOption)
-}, [isDarkMode])
+}, [theme.isDarkMode])
 
   const editGDPValue = async () => {
     const years = [];

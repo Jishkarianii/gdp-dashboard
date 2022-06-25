@@ -1,6 +1,6 @@
 import "./TopGDPChart.scss"
-import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useState, useEffect, useContext } from 'react'
+import ThemeContext from "../context/ThemeContext";
 import EChart from "./EChart";
 import axios from 'axios'
 
@@ -53,7 +53,7 @@ const optionData = {
 
 function TopGDPChart() {
     const [option, setOption] = useState(optionData)
-    const isDarkMode = useSelector(state => state.darkMode.isDarkMode)
+    const theme = useContext(ThemeContext)
     
     useEffect(() => {
       setChartData()
@@ -66,7 +66,7 @@ function TopGDPChart() {
     useEffect(() => {
         const editedOption = { ...option };
 
-        if (isDarkMode) {
+        if (theme.isDarkMode) {
           editedOption.title.textStyle.color = "rgb(236, 236, 236)";
           editedOption.legend.textStyle.color = "rgb(236, 236, 236)";
           editedOption.series[0].textStyle.color = "rgb(236, 236, 236)";
@@ -79,7 +79,7 @@ function TopGDPChart() {
         }
 
         setOption(editedOption)
-    }, [isDarkMode])
+    }, [theme.isDarkMode])
 
     useEffect(() => {
       window.addEventListener("resize", resizeHandler)

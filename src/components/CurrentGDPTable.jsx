@@ -7,8 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect, useContext } from 'react';
+import ThemeContext from "../context/ThemeContext";
 import axios from "axios";
 
 const currentGDP = "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.CD?&format=json&date=2020"
@@ -16,7 +16,7 @@ const currentGDP = "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MK
 function CurrentGDPTable() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [countresData, setCountresData] = useState([])
-  const isDarkMode = useSelector(state => state.darkMode.isDarkMode)
+  const theme = useContext(ThemeContext)
 
   useEffect(() => {
     getCurrentGDPData()
@@ -44,14 +44,14 @@ function CurrentGDPTable() {
         component={Paper} 
         style={{
           borderRadius: "6px",
-          background: isDarkMode ? "rgb(44, 44, 44)" : "rgb(244, 244, 248)"
+          background: theme.isDarkMode ? "rgb(44, 44, 44)" : "rgb(244, 244, 248)"
         }}
       >
         <Table aria-label="simple table">
             <TableHead>
             <TableRow>
-              <TableCell style={{ color: isDarkMode ? "rgb(236, 236, 236)" : "rgb(70, 70, 70)", borderColor: "rgb(172, 172, 175)" }}>Countries</TableCell>
-              <TableCell align="center" style={{ color: isDarkMode ? "rgb(236, 236, 236)" : "rgb(70, 70, 70)", borderColor: "rgb(172, 172, 175)" }}>GDP</TableCell>
+              <TableCell style={{ color: theme.isDarkMode ? "rgb(236, 236, 236)" : "rgb(70, 70, 70)", borderColor: "rgb(172, 172, 175)" }}>Countries</TableCell>
+              <TableCell align="center" style={{ color: theme.isDarkMode ? "rgb(236, 236, 236)" : "rgb(70, 70, 70)", borderColor: "rgb(172, 172, 175)" }}>GDP</TableCell>
             </TableRow>
             </TableHead>
             <TableBody>
@@ -61,10 +61,10 @@ function CurrentGDPTable() {
                   key={item.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}  
                 >
-                <TableCell component="th" scope="row" style={{ color: isDarkMode ? "rgb(236, 236, 236)" : "rgb(70, 70, 70)", borderColor: "rgb(172, 172, 175)" }}>
+                <TableCell component="th" scope="row" style={{ color: theme.isDarkMode ? "rgb(236, 236, 236)" : "rgb(70, 70, 70)", borderColor: "rgb(172, 172, 175)" }}>
                     {item.name}
                 </TableCell>
-                  <TableCell align="center" style={{ color: isDarkMode ? "rgb(236, 236, 236)" : "rgb(70, 70, 70)", borderColor: "rgb(172, 172, 175)" }}>{item.value}</TableCell>
+                  <TableCell align="center" style={{ color: theme.isDarkMode ? "rgb(236, 236, 236)" : "rgb(70, 70, 70)", borderColor: "rgb(172, 172, 175)" }}>{item.value}</TableCell>
                 </TableRow>
             )))}
             </TableBody>
