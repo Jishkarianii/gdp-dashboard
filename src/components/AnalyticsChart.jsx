@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import ThemeContext from "../context/ThemeContext"
 import EChart from "./EChart"
 import axios from 'axios'
+import Spinner from "./Spinner"
 
 const optionData = {
     tooltip: {
@@ -38,6 +39,7 @@ const optionData = {
 
 function AnalyticsChart() {
   const [option, setOption] = useState(optionData)
+  const [isLoaded, setIsLoaded] = useState(false)
   const theme = useContext(ThemeContext)
   
   useEffect(() => {
@@ -107,11 +109,16 @@ function AnalyticsChart() {
     editedOption.xAxis.data = data[0].years;
 
     setOption(editedOption)
+    setIsLoaded(true)
   }
 
   return (
     <section className="analytics-chart">
-        <EChart option={option} />
+        {isLoaded ? (
+          <EChart option={option} />
+        ) : (
+          <Spinner />
+        )}
     </section>
   )
 }

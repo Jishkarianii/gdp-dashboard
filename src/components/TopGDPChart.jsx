@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import ThemeContext from "../context/ThemeContext";
 import EChart from "./EChart";
 import axios from 'axios'
+import Spinner from "./Spinner";
 
 const allCountriesData = "https://api.worldbank.org/v2/countries/all/indicators/NY.GDP.MKTP.CD?format=json&date=2020&page=";
 
@@ -53,6 +54,7 @@ const optionData = {
 
 function TopGDPChart() {
     const [option, setOption] = useState(optionData)
+    const [isLoaded, setIsLoaded] = useState(false)
     const theme = useContext(ThemeContext)
     
     useEffect(() => {
@@ -153,12 +155,17 @@ function TopGDPChart() {
       const topTenCountries = await calcTopGDPCountries()
       const editedOption = { ...option }
       editedOption.series[0].data = topTenCountries;
-      setOption(option)      
+      setOption(option)
+      setIsLoaded(true)    
     }
 
     return (
         <div className="top-GDP-chart">
-            <EChart option={option} />
+            {isLoaded ? (
+              <EChart option={option} />
+            ) : (
+              <Spinner />
+            )}
         </div>
     )
 }

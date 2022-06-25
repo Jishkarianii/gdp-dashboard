@@ -3,6 +3,7 @@ import EChart from "./EChart"
 import { useContext, useEffect, useState } from "react";
 import ThemeContext from "../context/ThemeContext";
 import axios from "axios";
+import Spinner from "./Spinner";
 
 const geoGDPDynamics = "https://api.worldbank.org/v2/country/geo/indicator/NY.GDP.MKTP.CD?&format=json&date=1980:2020"
 
@@ -31,6 +32,7 @@ const optionData = {
 
 function GDPDynamics() {
   const [option, setOption] = useState(optionData)
+  const [isLoaded, setIsLoaded] = useState(false)
   const theme = useContext(ThemeContext)
 
   useEffect(() => {
@@ -81,11 +83,16 @@ function GDPDynamics() {
     editedOption.series[0].data = values;
 
     setOption(editedOption)
+    setIsLoaded(true)
   }
 
   return (
       <div className="GDP-dynamics">
-          <EChart option={option} />
+          {isLoaded ? (
+            <EChart option={option} />
+          ) : (
+            <Spinner />
+          )}
       </div>
   )
 }
